@@ -10,5 +10,4 @@ public class TriggerTest {
     public void test() {
         Assert.assertEquals(1, new Trigger().someLogic());
     }
-
 }
