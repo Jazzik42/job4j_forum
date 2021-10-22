@@ -1,30 +1,40 @@
 package ru.job4j.forum.control;
-
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.job4j.forum.model.User;
-import ru.job4j.forum.service.PostService;
-import ru.job4j.forum.service.UserService;
+import ru.job4j.forum.store.AuthorityRepository;
+import ru.job4j.forum.store.UserRepository;
 
 @Controller
 public class RegControl {
-    private PostService postService;
-    private UserService userService;
 
-    public RegControl(PostService postService, UserService userService) {
-        this.postService = postService;
-        this.userService = userService;
+    private final PasswordEncoder encoder;
+    private final UserRepository users;
+    private final AuthorityRepository authorities;
+
+    public RegControl(PasswordEncoder encoder,
+                      UserRepository users, AuthorityRepository authorities) {
+        this.encoder = encoder;
+        this.users = users;
+        this.authorities = authorities;
     }
 
     @PostMapping("/reg")
-    public String save(@ModelAttribute User user) {
-        //user.setEnabled(true);
-        //user.setPassword(user.getPassword());
-    //user.setAuthority(authorityService.findByAuthority("ROLE_USER"));
-
-    return "redirect:/login";
+    public String save(@ModelAttribute User user, Model model) {
+        User userFromDb = users.findByUsername(user.getUsername());
+        if (userFromDb != null) {
+            model.addAttribute("errorRegMessage", "User exists!");
+            return "reg";
+        }
+        user.setEnabled(true);
+        user.setPassword(encoder.encode(user.getPassword()));
+        user.setAuthority(authorities.findByAuthority("ROLE_USER"));
+       users.save(user);
+        return "redirect:/login";
     }
 
     @GetMapping("/reg")

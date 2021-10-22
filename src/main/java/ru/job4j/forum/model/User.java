@@ -10,12 +10,13 @@ import java.util.Objects;
 @Getter
 @Setter
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String name;
+    @Column(unique = true)
+    private String username;
     private String password;
     @ManyToOne()
     @JoinColumn(name = "authority_id")
