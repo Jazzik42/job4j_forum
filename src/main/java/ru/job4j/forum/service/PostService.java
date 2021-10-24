@@ -8,7 +8,7 @@ import java.util.List;
 
 @Service
 public class PostService {
-    private PostRepository repository;
+    private final PostRepository repository;
 
     public PostService(PostRepository repository) {
         this.repository = repository;

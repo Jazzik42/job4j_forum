@@ -6,7 +6,7 @@ import ru.job4j.forum.store.AuthorityRepository;
 
 @Service
 public class AuthorityService {
-    private AuthorityRepository authorityRepository;
+    private final AuthorityRepository authorityRepository;
 
     public AuthorityService(AuthorityRepository authorityRepository) {
         this.authorityRepository = authorityRepository;
