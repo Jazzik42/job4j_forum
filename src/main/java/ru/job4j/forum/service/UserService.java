@@ -23,7 +23,7 @@ public class UserService {
         return users;
     }
 
-    public User saveOrUpdate(User user) {
+    public User save(User user) {
         return userRepository.save(user);
     }
 
@@ -33,5 +33,9 @@ public class UserService {
 
     public User findById(int id) {
         return userRepository.findById(id).get();
+    }
+
+    public User findByUsername(String user) {
+        return userRepository.findByUsername(user);
     }
 }

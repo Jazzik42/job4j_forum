@@ -35,12 +35,6 @@ public class PostControl {
         return "post/saveOrUpdate";
     }
 
-    @GetMapping("/delete")
-    public String delete(@ModelAttribute("post") Post post) {
-        postService.delete(post);
-        return "redirect:/";
-    }
-
     @GetMapping("/post")
     public String post(@RequestParam("postId") int postId, Model model) {
         model.addAttribute("post",

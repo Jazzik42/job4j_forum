@@ -12,7 +12,7 @@ public class AuthorityService {
         this.authorityRepository = authorityRepository;
     }
 
-    public void saveOrUpdate(Authority auth) {
+    public void save(Authority auth) {
         authorityRepository.save(auth);
     }
 

@@ -26,10 +26,6 @@ public class PostService {
         return repository.save(post);
     }
 
-    public void delete(Post post) {
-        repository.delete(post);
-    }
-
     public Post findById(int id) {
         return repository.findById(id).get();
     }
