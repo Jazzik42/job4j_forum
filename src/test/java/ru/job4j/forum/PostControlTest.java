@@ -73,23 +73,23 @@ class PostControlTest {
         assertThat(argument.getValue().getName(), is("Куплю ладу-грант. Дорого."));
     }
 
-    @Test
-    @WithMockUser
-    public void whenUpdatePost() throws Exception {
-        Post post = new Post();
-        post.setName("name");
-        post.setDescription("description");
-        post.setId(1);
-        post.setCreated(new Date());
-        Mockito.when(posts.saveOrUpdate(Mockito.any())).thenReturn(post);
-        this.mockMvc.perform(get("/update?postId=1")
-                        .content(objectMapper.writeValueAsString(post))
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value("1"))
-                .andExpect(jsonPath("$.name").value("name"))
-                .andExpect(jsonPath("$.description").value("description"))
-                .andExpect(jsonPath("$.created").value(post.getCreated()));
-    }
+//    @Test
+//    @WithMockUser
+//    public void whenUpdatePost() throws Exception {
+//        Post post = new Post();
+//        post.setName("name");
+//        post.setDescription("description");
+//        post.setId(1);
+//        post.setCreated(new Date());
+//        Mockito.when(posts.saveOrUpdate(Mockito.any())).thenReturn(post);
+//        this.mockMvc.perform(get("/update?postId=1")
+//                        .content(objectMapper.writeValueAsString(post))
+//                        .contentType(MediaType.APPLICATION_JSON))
+//                .andDo(print())
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$.id").value("1"))
+//                .andExpect(jsonPath("$.name").value("name"))
+//                .andExpect(jsonPath("$.description").value("description"))
+//                .andExpect(jsonPath("$.created").value(post.getCreated()));
+//    }
 }
