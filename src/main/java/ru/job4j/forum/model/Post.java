@@ -3,6 +3,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -46,4 +47,10 @@ public class Post {
     public int hashCode() {
         return Objects.hash(id);
     }
+
+        public static void main(String[] args) {
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            String pwd = encoder.encode("secret");
+            System.out.println(pwd);
+        }
 }

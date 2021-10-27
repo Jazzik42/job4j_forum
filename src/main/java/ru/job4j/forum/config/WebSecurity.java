@@ -1,12 +1,10 @@
 package ru.job4j.forum.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.sql.DataSource;
@@ -15,16 +13,16 @@ import javax.sql.DataSource;
 public class WebSecurity extends WebSecurityConfigurerAdapter {
 
     private DataSource ds;
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }
+    private  PasswordEncoder passwordEnc;
 
     @Autowired
     public void setDs(DataSource ds) {
         this.ds = ds;
+    }
+
+    @Autowired
+    public void setPasswordEncoder(PasswordEncoder passwordEnc) {
+        this.passwordEnc = passwordEnc;
     }
 
     @Override
@@ -38,11 +36,6 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                         " select u.username, a.authority "
                                 + "from authorities as a, users as u "
                                 + "where u.username = ? and u.authority_id = a.id");
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 
     @Override
