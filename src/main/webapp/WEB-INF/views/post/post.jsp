@@ -14,6 +14,10 @@
     <title>Форум job4j</title>
 </head>
 <body>
+<div class="col-4">
+    <a href="/logout" class='pull-right'>Выйти</a>
+    <span class='pull-right'>${user.username} | </span><br>
+</div>
 <div class="container mt-3">
     <div class="row">
         <h4>Форум job4j</h4>

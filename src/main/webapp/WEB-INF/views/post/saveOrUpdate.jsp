@@ -3,6 +3,10 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <body>
+<div class="col-4">
+    <a href="/logout" class='pull-right'>Выйти</a>
+    <span class='pull-right'>${user.username} | </span><br>
+</div>
 <form:form action="save" modelAttribute="post">
     <form:hidden path="id"/>
     <table>
