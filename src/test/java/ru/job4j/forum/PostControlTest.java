@@ -15,6 +15,7 @@ import ru.job4j.forum.model.Post;
 import ru.job4j.forum.service.PostService;
 
 import java.util.Date;
+import java.util.List;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -29,9 +30,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = Main.class)
 @AutoConfigureMockMvc
 class PostControlTest {
-
-    @Autowired
-    private ObjectMapper objectMapper;
 
     @MockBean
     private PostService posts;
@@ -73,23 +71,20 @@ class PostControlTest {
         assertThat(argument.getValue().getName(), is("Куплю ладу-грант. Дорого."));
     }
 
-//    @Test
-//    @WithMockUser
-//    public void whenUpdatePost() throws Exception {
-//        Post post = new Post();
-//        post.setName("name");
-//        post.setDescription("description");
-//        post.setId(1);
-//        post.setCreated(new Date());
-//        Mockito.when(posts.saveOrUpdate(Mockito.any())).thenReturn(post);
-//        this.mockMvc.perform(get("/update?postId=1")
-//                        .content(objectMapper.writeValueAsString(post))
-//                        .contentType(MediaType.APPLICATION_JSON))
-//                .andDo(print())
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$.id").value("1"))
-//                .andExpect(jsonPath("$.name").value("name"))
-//                .andExpect(jsonPath("$.description").value("description"))
-//                .andExpect(jsonPath("$.created").value(post.getCreated()));
-//    }
+    @Test
+    @WithMockUser
+    public void whenUpdatePost() throws Exception {
+        Post post = new Post();
+        post.setName("name");
+        post.setDescription("description");
+        int id = posts.saveOrUpdate(post).getId();
+        this.mockMvc.perform(get("/update?postId=" + id)
+                        .param("name","Куплю ладу-грант. Дорого."))
+                .andDo(print())
+                .andExpect(status().isOk());
+        ArgumentCaptor<Post> argument = ArgumentCaptor.forClass(Post.class);
+        verify(posts).saveOrUpdate(argument.capture());
+        assertThat(argument.getValue().getName(), is("Куплю ладу-грант. Дорого."));
+        assertThat(argument.getValue().getDescription(), is("description"));
+    }
 }
