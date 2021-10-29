@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.MockMvc;
 public class IndexControlTest {
 
     private MockMvc mockMvc;
+
     @Autowired
     public IndexControlTest(MockMvc mockMvc) {
         this.mockMvc = mockMvc;

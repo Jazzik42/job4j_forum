@@ -63,7 +63,7 @@ class PostControlTest {
     @WithMockUser
     public void whenSavePost() throws Exception {
         this.mockMvc.perform(post("/save")
-                        .param("name","Куплю ладу-грант. Дорого."))
+                        .param("name", "Куплю ладу-грант. Дорого."))
                 .andDo(print())
                 .andExpect(status().is3xxRedirection());
         ArgumentCaptor<Post> argument = ArgumentCaptor.forClass(Post.class);
@@ -79,7 +79,7 @@ class PostControlTest {
         post.setDescription("description");
         int id = posts.saveOrUpdate(post).getId();
         this.mockMvc.perform(get("/update?postId=" + id)
-                        .param("name","Куплю ладу-грант. Дорого."))
+                        .param("name", "Куплю ладу-грант. Дорого."))
                 .andDo(print())
                 .andExpect(status().isOk());
         ArgumentCaptor<Post> argument = ArgumentCaptor.forClass(Post.class);
