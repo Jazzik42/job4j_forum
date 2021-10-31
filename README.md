@@ -1,5 +1,13 @@
 # job4j_forum
 [![Build Status](https://app.travis-ci.com/Jazzik42/job4j_forum.svg?branch=master)](https://app.travis-ci.com/Jazzik42/job4j_forum)
+## Технологии 
+* Spring Boot(Web, Data, Security, Test)
+* JSP
+* JSTL
+* PostgreSQL
+* Liquibase
+* Maven
+* Heroku
 О проекте
 1. Данное Spring Boot приложение представляет собой систему публикации постов.
 2. При добавлении поста необходимо указать название и описание поста.
